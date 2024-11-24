@@ -18,7 +18,8 @@ bot_image_paths = [r"pic\bot1.png",
                    r"pic\bot5.png",
                    r"pic\bot6.png",
                    r"pic\bot7.png",
-                   r"pic\bot8.png"]
+                   r"pic\bot8.png",
+                   r"pic\bot9.png"]
 
 # Path to the image of the "Console" button
 console_image_paths = [
@@ -31,7 +32,7 @@ console_image_paths = [
     r"pic\con7.png",
     r"pic\con8.png",
     r"pic\con9.png",
-    r"pic\con10.png",
     r"pic\con11.png",
     r"pic\con12.png",
-    r"pic\con13.png"]  # Specify the path to the "console_tab" file - it will be stored in your directory. THE PATH TO THE FILE MUST BE IN LATIN LETTERS.
+    r"pic\con13.png",
+    r"pic\con14.png"]  # Specify the path to the "console_tab" file - it will be stored in your directory. THE PATH TO THE FILE MUST BE IN LATIN LETTERS.

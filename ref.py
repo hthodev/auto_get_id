@@ -1,6 +1,11 @@
 from src.core import *
 from src.cucumber import _banner, log, mrh, pth, hju, kng, bru, htm
 from global_config import *
+import time
+import pygetwindow as gw
+import random
+from pywinauto.keyboard import send_keys
+from pywinauto.application import Application
 
 
 # Function to search and click on the link
@@ -43,6 +48,26 @@ def click_bot():
         log("Failed to find the link.")
 
 # Function to interact with the bot
+def focus_mini_app(bot_name):
+    log(f"Focusing on the mini-app window for {bot_name}...")
+    mini_app_window = gw.getWindowsWithTitle('TelegramDesktop')[0]
+
+    if mini_app_window:
+        print("mini_app_window", mini_app_window)
+        mini_app_window.activate()  # Chuyển tiêu điểm sang cửa sổ TelegramDesktop
+        log(f"TelegramDesktop window '{mini_app_window.title}' is now active.")
+
+        # Lấy vị trí và kích thước của cửa sổ TelegramDesktop
+        bbox = mini_app_window.box
+        center_x, center_y = bbox.left + bbox.width // 2, bbox.top + bbox.height // 2
+
+        # Nhấn chuột vào giữa cửa sổ (hoặc vị trí dự kiến của mini-app)
+        pyautogui.click(center_x, center_y)
+        log(f"Clicked at {center_x}, {center_y} to focus mini-app.")
+    else:
+        log(f"Mini-app window for {bot_name} not found. Please check!")
+        raise Exception(f"Mini-app window for {bot_name} not found.")
+    
 def interact_with_bot(app, bot_name, code, account_num, row):
     log("Focusing on the Telegram window...")
     main_window = app.top_window()
@@ -77,6 +102,10 @@ def interact_with_bot(app, bot_name, code, account_num, row):
         fastmint()
 
     time.sleep(2)
+
+    # Focus on the mini-app window before pressing F12
+    focus_mini_app(bot_name)
+
     # Open Developer Tools (press F12)
     log("Pressing F12 to open Developer Tools...")
     send_keys('{F12}')
@@ -107,44 +136,25 @@ def interact_with_bot(app, bot_name, code, account_num, row):
     keyboard.press_and_release('alt+F4')
     time.sleep(0.5)
 
-    if bot_name == 'matchquest':
-        match_quest()
+    # Handle specific bots
+    bot_functions = {
+        "matchquest": match_quest,
+        "duckchain": duck_chain,
+        "kucoin": kucoin,
+        "birds": birds,
+        "money_dogs": money_dogs,
+        "catsdogs": catsdogs,
+        "bitget": bitget,
+        "coub": coub,
+        "etherdrops": etherdrops,
+        "padton": padton,
+        "fabrika": fabrika,
+        "pumpad": pumpad,
+        "kiloextrade": kiloextrade,
+    }
 
-    if bot_name == 'duckchain':
-        duck_chain()
-
-    if bot_name == 'kucoin':
-        kucoin()
-
-    if bot_name == 'birds':
-        birds()
-
-    if bot_name == 'money_dogs':
-        money_dogs()
-
-    if bot_name == 'catsdogs':
-        catsdogs()
-
-    if bot_name == 'bitget':
-        bitget()
-
-    if bot_name == 'coub':
-        coub()
-
-    if bot_name == "etherdrops":
-        etherdrops()
-
-    if bot_name == "padton":
-        padton()
-
-    if bot_name == "fabrika":
-        fabrika()
-
-    if bot_name == "pumpad":
-        pumpad()
-
-    if bot_name =="kiloextrade":
-        kiloextrade()
+    if bot_name in bot_functions:
+        bot_functions[bot_name]()
 
     keyboard.press_and_release('alt+F4')
     time.sleep(1)

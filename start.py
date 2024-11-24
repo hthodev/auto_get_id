@@ -2,7 +2,11 @@ import keyboard
 from global_config import *
 from src.core import *
 from src.cucumber import _banner, log, mrh, pth, hju, kng, bru, htm
-
+import time
+import pygetwindow as gw
+import random
+from pywinauto.keyboard import send_keys
+from pywinauto.application import Application
 
 # Function to find and click on the link
 def click_link():
@@ -24,6 +28,26 @@ def click_link():
     else:
         log("Failed to find the link.")
 
+def focus_mini_app(bot_name):
+    log(f"Focusing on the mini-app window for {bot_name}...")
+    mini_app_window = gw.getWindowsWithTitle('TelegramDesktop')[0]
+
+    if mini_app_window:
+        print("mini_app_window", mini_app_window)
+        mini_app_window.activate()  # Chuyển tiêu điểm sang cửa sổ TelegramDesktop
+        log(f"TelegramDesktop window '{mini_app_window.title}' is now active.")
+
+        # Lấy vị trí và kích thước của cửa sổ TelegramDesktop
+        bbox = mini_app_window.box
+        center_x, center_y = bbox.left + bbox.width // 2, bbox.top + bbox.height // 2
+
+        # Nhấn chuột vào giữa cửa sổ (hoặc vị trí dự kiến của mini-app)
+        pyautogui.click(center_x, center_y)
+        log(f"Clicked at {center_x}, {center_y} to focus mini-app.")
+    else:
+        log(f"Mini-app window for {bot_name} not found. Please check!")
+        raise Exception(f"Mini-app window for {bot_name} not found.")
+    
 # Function to interact with the bot
 def interact_with_bot(app, bot_name, code, account_num, row):
     log("Focusing on the Telegram window...")
@@ -55,6 +79,8 @@ def interact_with_bot(app, bot_name, code, account_num, row):
     click_link()
 
     time.sleep(2)
+
+    focus_mini_app(bot_name)
 
     log("Pressing F12 to open the developer console...")
     send_keys('{F12}')

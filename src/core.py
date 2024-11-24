@@ -13,6 +13,7 @@ from global_config import base_dir, file_path, console_image_paths, seach_image_
 
 codes = dict(
     realgoats="copy+9decodeURIComponent+9sessionStorage['telegram-apps/launch-params']+0.split+9'tgWebAppData='+0[1].split+9'&tgWebAppStartParam'+0[0]+0",
+    goats="copy+9decodeURIComponent+9sessionStorage['telegram-apps/launch-params']+0.split+9'tgWebAppData='+0[1].split+9'&tgWebAppStartParam'+0[0]+0",
     tomarket_ai_bot="copy+9decodeURIComponent+9sessionStorage.SourceTarget+0.split+9'#tgWebAppData='+0[1].split+9'&tgWebAppVersion='+0[0]+0",
     tomarket="copy+9decodeURIComponent+9sessionStorage.SourceTarget+0.split+9'#tgWebAppData='+0[1].split+9'&tgWebAppVersion='+0[0]+0",
     money_dogs="copy+9decodeURIComponent+9sessionStorage['telegram-apps/launch-params']+0.split+9'tgWebAppData='+0[1].split+9'&tgWebAppStartParam'+0[0]+0",
